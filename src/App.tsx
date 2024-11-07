@@ -1,7 +1,10 @@
+import Pokemons from "./components/pokemons";
 function App() {
 	return (
 		<>
-			<div></div>
+			<div>
+				<Pokemons />
+			</div>
 		</>
 	);
 }

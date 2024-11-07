@@ -1,7 +1,14 @@
 :root {
+	color: white;
 	--body-bg-color: #4e4e4e;
 }
 
 body {
 	background-color: var(--body-bg-color);
+}
+.pokemons {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
