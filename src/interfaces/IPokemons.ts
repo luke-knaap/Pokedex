@@ -1,4 +1,4 @@
-export interface IPokemon {
+export interface IPokemons {
 	id: number;
 	name: string;
 	sprites: {

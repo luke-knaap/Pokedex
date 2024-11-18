@@ -1,6 +1,7 @@
-export async function PokeApi() {
+export async function PokeApi(url?: string) {
 	try {
-		const pokeapi = await fetch("https://pokeapi.co/api/v2/pokemon?limit=24");
+		const baseUrl = url || "https://pokeapi.co/api/v2/pokemon?limit=20";
+		const pokeapi = await fetch(baseUrl);
 		const data: any = await pokeapi.json();
 
 		const pokemonInfo = await Promise.all(
@@ -14,8 +15,13 @@ export async function PokeApi() {
 				};
 			})
 		);
-		console.log(pokemonInfo);
-		return pokemonInfo;
+		const result = {
+			pokemonInfo: pokemonInfo,
+			next: data.next,
+			previous: data.previous
+		};
+		console.log(result);
+		return result;
 	} catch (error) {
 		console.log(error);
 	}

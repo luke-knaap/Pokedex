@@ -1,5 +1,6 @@
 .custom-button {
 	color: white;
+	text-align: center;
 	font-size: 20px;
 	background-color: #00b3ff;
 	border-radius: 100px;
@@ -9,6 +10,12 @@
 }
 .custom-button:hover {
 	cursor: pointer;
+	background-color: white;
+	color: #00b3ff;
+	border: #00b3ff 2px solid;
+}
+.custom-button:disabled {
+	cursor: not-allowed;
 	background-color: white;
 	color: #00b3ff;
 	border: #00b3ff 2px solid;
