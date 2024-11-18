@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import {PokeApi} from "../api/pokeApi";
 import {IPokemon} from "../interfaces/IPokemons";
+import "../styles/pokemonCards.css";
 function Pokemons() {
 	const [pokemons, setPokemons] = useState<IPokemon[]>([]);
 	useEffect(() => {
@@ -14,8 +15,8 @@ function Pokemons() {
 		<div className="pokemons">
 			<h1>Pokemons</h1>
 			<ul className="pokemons-list">
-				{pokemons.map(({name, sprites}) => (
-					<li className="pokemon-card" key={name}>
+				{pokemons.map(({id, name, sprites}) => (
+					<li className="pokemon-card" key={id}>
 						<p>{name}</p>
 						<img src={sprites.front_default} alt={name} />
 					</li>
@@ -23,5 +24,5 @@ function Pokemons() {
 			</ul>
 		</div>
 	);
-}
+} 
 export default Pokemons;
