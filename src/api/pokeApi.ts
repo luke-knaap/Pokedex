@@ -1,9 +1,20 @@
 export async function PokeApi() {
 	try {
-		const pokeapi = await fetch("https://pokeapi.co/api/v2/pokemon?limit=25");
+		const pokeapi = await fetch("https://pokeapi.co/api/v2/pokemon?limit=24");
 		const data = await pokeapi.json();
-		console.log(data.results);
-		return data.results;
+
+		const pokemonInfo = await Promise.all(
+			data.results.map(async (pokemon: any) => {
+				const pokemonInfo = await fetch(pokemon.url);
+				const pokemonData = await pokemonInfo.json();
+				return {
+					name: pokemonData.name,
+					sprites: pokemonData.sprites
+				};
+			})
+		);
+		console.log(pokemonInfo);
+		return pokemonInfo;
 	} catch (error) {
 		console.log(error);
 	}
