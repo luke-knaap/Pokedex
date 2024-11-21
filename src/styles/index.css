@@ -1,6 +1,8 @@
 :root {
 	color: white;
-	--body-bg-color: #4e4e4e;
+	--body-bg-color: #1B1D2A;
+	--primary-color: #3B4CCA ;
+	--secondary-color: #A5C8E1 ;
 }
 
 body {
@@ -22,4 +24,15 @@ img {
 	gap: 5em;
 	display: flex;
 	justify-content: center;
+}
+
+.type-badge {
+	font-weight: bold; 
+	padding: 5px;
+	margin-right: 5px;
+	width: 100px;
+	height: 100px;
+	border: white 2px solid;
+	border-radius: 20px;
+	
 }

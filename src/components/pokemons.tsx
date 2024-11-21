@@ -1,12 +1,14 @@
 import {useEffect, useState} from "react";
 import {PokeApi} from "../api/pokeApi";
 import Buttons from "./buttons";
-import {IPokemons} from "../interfaces/IPokemons";
+import Inputs from "./inputs";
+import {Pokemon} from "../classes/pokemon";
 import "../styles/pokemonCards.css";
 function Pokemons() {
-	const [pokemons, setPokemons] = useState<IPokemons[]>([]);
+	const [pokemons, setPokemons] = useState<Pokemon[]>([]);
 	const [next, setNext] = useState<string>("");
 	const [previous, setPrevious] = useState<string>("");
+	const [shiny, setShiny] = useState<boolean>(false);
 
 	async function getPokemons(url?: string) {
 		const data: any = await PokeApi(url);
@@ -23,12 +25,25 @@ function Pokemons() {
 		<div className="pokemons">
 			<h1>Pokemons</h1>
 			<ul className="pokemons-list">
-				{pokemons.map(({id, name, sprites}) => (
-					<li className="pokemon-card" key={id}>
-						<p>{name}</p>
-						<img src={sprites.front_default} alt={name} />
-					</li>
-				))}
+				{pokemons.map((pokemon) => {
+					const sprites = pokemon.getSprite(shiny);
+					return (
+						<button className="pokemon-card" key={pokemon.id}>
+							<p>{pokemon.getFormattedName()}</p>
+							<img src={sprites} alt={pokemon.name} />
+							<p>
+								{pokemon.types.map((type) => (
+									<span
+										key={type}
+										className="type-badge"
+										style={{backgroundColor: pokemon.getTypeColor(type)}}>
+										{type.charAt(0).toUpperCase() + type.slice(1)}
+									</span>
+								))}
+							</p>
+						</button>
+					);
+				})}
 			</ul>
 			<div className="buttons">
 				<Buttons
@@ -45,6 +60,12 @@ function Pokemons() {
 					}}
 					disabled={!next}
 				/>
+				<Inputs
+					label="Shiny"
+					type="checkbox"
+					value="shiny"
+					checked={shiny}
+					onChange={() => setShiny(!shiny)}></Inputs>
 			</div>
 		</div>
 	);

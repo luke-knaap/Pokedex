@@ -1,3 +1,5 @@
+import {Pokemon} from "../classes/pokemon";
+
 export async function PokeApi(url?: string) {
 	try {
 		const baseUrl = url || "https://pokeapi.co/api/v2/pokemon?limit=20";
@@ -8,15 +10,20 @@ export async function PokeApi(url?: string) {
 			data.results.map(async (pokemon: any) => {
 				const pokemonInfo = await fetch(pokemon.url);
 				const pokemonData = await pokemonInfo.json();
-				return {
-					id: pokemonData.id,
-					name: pokemonData.name,
-					sprites: pokemonData.sprites
-				};
+				return new Pokemon(
+					pokemonData.id,
+					pokemonData.name,
+					pokemonData.types.map((type: any) => type.type.name),
+					{
+						front_default: pokemonData.sprites.front_default,
+						front_shiny: pokemonData.sprites.front_shiny
+					},
+					pokemonData.weight
+				);
 			})
 		);
 		const result = {
-			pokemonInfo: pokemonInfo,
+			pokemonInfo,
 			next: data.next,
 			previous: data.previous
 		};
