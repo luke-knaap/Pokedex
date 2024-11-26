@@ -1,8 +1,8 @@
 :root {
 	color: white;
-	--body-bg-color: #1B1D2A;
-	--primary-color: #3B4CCA ;
-	--secondary-color: #A5C8E1 ;
+	--body-bg-color: #1b1d2a;
+	--primary-color: rgb(59, 76, 202) ;
+	--secondary-color: rgb(165, 200, 225) ;
 }
 
 body {

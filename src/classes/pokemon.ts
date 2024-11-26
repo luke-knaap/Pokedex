@@ -1,22 +1,15 @@
 import {IPokemons} from "../interfaces/IPokemons";
-import {typeColors} from "../interfaces/colors";
+import {TYPE_COLORS} from "../constants/colors";
+import {POKEMON_FRONT_PNG_URL, POKEMON_FRONT_SHINY_PNG_URL} from "../constants/URLS";
 export class Pokemon implements IPokemons {
 	id: number;
 	name: string;
 	types: string[];
-	sprites: {front_default: string; front_shiny: string};
 	weight: number;
-	constructor(
-		id: number,
-		name: string,
-		types: string[],
-		sprites: {front_default: string; front_shiny: string},
-		weight: number
-	) {
+	constructor(id: number, name: string, types: string[], weight: number) {
 		this.id = id;
 		this.name = name;
 		this.types = types;
-		this.sprites = sprites;
 		this.weight = weight;
 	}
 	getTypeString(): string {
@@ -25,13 +18,15 @@ export class Pokemon implements IPokemons {
 	getFormattedName(): string {
 		return this.name.charAt(0).toUpperCase() + this.name.slice(1);
 	}
-	getSprite(shiny: boolean): string {
-		return shiny ? this.sprites.front_shiny : this.sprites.front_default;
+	getImages(isShiny: boolean = false): string {
+		return isShiny
+			? `${POKEMON_FRONT_SHINY_PNG_URL}/${this.id}.png`
+			: `${POKEMON_FRONT_PNG_URL}/${this.id}.png`;
 	}
 	getTypeColor(type: string): string {
-		return typeColors[type] || "FFFFFF";
+		return TYPE_COLORS[type] || "FFFFFF";
 	}
-	private capitalizeWords(words: string[]): string[] {
+	capitalizeWords(words: string[]): string[] {
 		return words.map((word) => word.charAt(0).toUpperCase() + word.slice(1));
 	}
 }

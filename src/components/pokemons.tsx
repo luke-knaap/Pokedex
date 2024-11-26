@@ -1,14 +1,16 @@
 import {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
 import {PokeApi} from "../api/pokeApi";
+import {Pokemon} from "../classes/pokemon";
 import Buttons from "./buttons";
 import Inputs from "./inputs";
-import {Pokemon} from "../classes/pokemon";
 import "../styles/pokemonCards.css";
 function Pokemons() {
 	const [pokemons, setPokemons] = useState<Pokemon[]>([]);
 	const [next, setNext] = useState<string>("");
 	const [previous, setPrevious] = useState<string>("");
 	const [shiny, setShiny] = useState<boolean>(false);
+	const navigate = useNavigate();
 
 	async function getPokemons(url?: string) {
 		const data: any = await PokeApi(url);
@@ -21,23 +23,28 @@ function Pokemons() {
 		getPokemons();
 	}, []);
 
+	const handlePokemonClick = (id: number) => {
+		navigate(`/pokemon/${id}`);
+	};
 	return (
 		<div className="pokemons">
 			<h1>Pokemons</h1>
 			<ul className="pokemons-list">
 				{pokemons.map((pokemon) => {
-					const sprites = pokemon.getSprite(shiny);
 					return (
-						<button className="pokemon-card" key={pokemon.id}>
+						<button
+							className={`pokemon-card ${shiny ? "shiny" : ""}`}
+							key={pokemon.id}
+							onClick={() => handlePokemonClick(pokemon.id)}>
 							<p>{pokemon.getFormattedName()}</p>
-							<img src={sprites} alt={pokemon.name} />
+							<img src={pokemon.getImages(shiny)} alt={pokemon.name} />
 							<p>
 								{pokemon.types.map((type) => (
 									<span
 										key={type}
 										className="type-badge"
 										style={{backgroundColor: pokemon.getTypeColor(type)}}>
-										{type.charAt(0).toUpperCase() + type.slice(1)}
+										{pokemon.capitalizeWords([type])}
 									</span>
 								))}
 							</p>

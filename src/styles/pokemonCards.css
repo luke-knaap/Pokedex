@@ -17,7 +17,12 @@
 	background-color: var(--primary-color);
 	border-radius: 30px;
 	border: 3px solid var(--secondary-color);
+	box-shadow: 10px  10px 50px rgba(165, 200, 225, 0.2);
 }
+.pokemon-card.shiny{
+	border: 3px solid gold;
+}
+
 .pokemon-card:hover {
 	cursor: pointer;
 	width: 215px;

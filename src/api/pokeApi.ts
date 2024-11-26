@@ -1,8 +1,8 @@
 import {Pokemon} from "../classes/pokemon";
-
+import {POKEMON_API_POKEMON_URL} from "../constants/URLS";
 export async function PokeApi(url?: string) {
 	try {
-		const baseUrl = url || "https://pokeapi.co/api/v2/pokemon?limit=20";
+		const baseUrl = url || POKEMON_API_POKEMON_URL;
 		const pokeapi = await fetch(baseUrl);
 		const data: any = await pokeapi.json();
 
@@ -14,10 +14,6 @@ export async function PokeApi(url?: string) {
 					pokemonData.id,
 					pokemonData.name,
 					pokemonData.types.map((type: any) => type.type.name),
-					{
-						front_default: pokemonData.sprites.front_default,
-						front_shiny: pokemonData.sprites.front_shiny
-					},
 					pokemonData.weight
 				);
 			})
