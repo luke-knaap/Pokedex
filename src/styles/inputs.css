@@ -1,0 +1,32 @@
+@import "./index.css";
+
+.input-div {
+	margin: 10px 0;
+}
+
+.custom-input input[type="checkbox"] {
+	appearance: none;
+	background-color: #fff;
+	margin: 0;
+	font: inherit;
+	color: currentColor;
+	width: 1.15em;
+	height: 1.15em;
+	border: 0.15em solid currentColor;
+	border-radius: 0.15em;
+	transform: translateY(-0.075em);
+}
+
+.custom-input input[type="checkbox"] {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	margin-right: 10px;
+	vertical-align: middle;
+	cursor: pointer;
+}
+
+.custom-input input[type="checkbox"]:checked {
+	background-color: var(--primary-color);
+	border: none;
+}
